@@ -3,8 +3,8 @@ package ru.example.spring.hotel.booking.web.controller.v1;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
+import org.springframework.boot.context.properties.bind.DefaultValue;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -33,8 +33,8 @@ public class HotelController {
     @GetMapping
 //    @PreAuthorize("hasAnyAuthority('ROLE_ADMIN', 'ROLE_USER','ROLE_MODERATOR')")
     public ResponseEntity<List<HotelResponseDto>> findAll(
-            @RequestParam @Min(0) @Max(Integer.MAX_VALUE) @NotNull Integer offset,
-            @RequestParam @Min(1) @Max(Integer.MAX_VALUE) @NotNull Integer limit
+            @RequestParam @Min(0) @Max(Integer.MAX_VALUE) @DefaultValue("0") Integer offset,
+            @RequestParam @Min(1) @Max(Integer.MAX_VALUE) @DefaultValue("100") Integer limit
     ) {
         return ResponseEntity.ok(hotelService.findAll(offset, limit));
     }
