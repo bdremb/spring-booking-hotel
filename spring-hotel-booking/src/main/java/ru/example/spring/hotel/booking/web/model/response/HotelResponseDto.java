@@ -6,7 +6,7 @@ import lombok.Data;
 @Data
 @Builder
 public class HotelResponseDto {
-    private Long id;
+    private Long hotelId;
     private String name;
     private String title;
     private String locationCity;

@@ -25,7 +25,7 @@ public interface HotelMapper {
 
     default Hotel toUpdateModel(Hotel existsHotel, HotelRequestDto dto) {
         return Hotel.builder()
-                .id(existsHotel.getId())
+                .hotelId(existsHotel.getHotelId())
                 .rating(existsHotel.getRating())
                 .ratingsCount(existsHotel.getRatingsCount())
                 .name(nonNull(dto.getName()) ? dto.getName() : existsHotel.getName())
