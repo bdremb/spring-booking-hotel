@@ -18,8 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import ru.example.spring.hotel.booking.service.HotelService;
 import ru.example.spring.hotel.booking.web.model.request.HotelRequestDto;
 import ru.example.spring.hotel.booking.web.model.response.HotelResponseDto;
-
-import java.util.List;
+import ru.example.spring.hotel.booking.web.model.response.PageDto;
 
 import static org.springframework.http.HttpStatus.CREATED;
 
@@ -32,7 +31,7 @@ public class HotelController {
 
     @GetMapping
 //    @PreAuthorize("hasAnyAuthority('ROLE_ADMIN', 'ROLE_USER','ROLE_MODERATOR')")
-    public ResponseEntity<List<HotelResponseDto>> findAll(
+    public ResponseEntity<PageDto<HotelResponseDto>> findAll(
             @RequestParam @Min(0) @Max(Integer.MAX_VALUE) @DefaultValue("0") Integer offset,
             @RequestParam @Min(1) @Max(Integer.MAX_VALUE) @DefaultValue("100") Integer limit
     ) {

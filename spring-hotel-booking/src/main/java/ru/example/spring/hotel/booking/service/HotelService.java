@@ -1,8 +1,8 @@
 package ru.example.spring.hotel.booking.service;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import ru.example.spring.hotel.booking.exception.EntityNotFoundException;
 import ru.example.spring.hotel.booking.mapper.HotelMapper;
@@ -10,8 +10,7 @@ import ru.example.spring.hotel.booking.model.Hotel;
 import ru.example.spring.hotel.booking.repository.HotelRepository;
 import ru.example.spring.hotel.booking.web.model.request.HotelRequestDto;
 import ru.example.spring.hotel.booking.web.model.response.HotelResponseDto;
-
-import java.util.List;
+import ru.example.spring.hotel.booking.web.model.response.PageDto;
 
 @Service
 @RequiredArgsConstructor
@@ -20,9 +19,12 @@ public class HotelService {
     private final HotelRepository hotelRepository;
     private final HotelMapper mapper;
 
-    public List<HotelResponseDto> findAll(Integer offset, Integer limit) {
-        Pageable pageable = PageRequest.of(offset, limit);
-        return mapper.toListDto(hotelRepository.findAll(pageable));
+    public PageDto<HotelResponseDto> findAll(Integer offset, Integer limit) {
+        final Page<Hotel> hotelPage = hotelRepository.findAll(PageRequest.of(offset, limit));
+        return PageDto.<HotelResponseDto>builder()
+                .items(mapper.toListDto(hotelPage))
+                .count(hotelPage.getTotalElements())
+                .build();
     }
 
     public HotelResponseDto findById(Long id) {
