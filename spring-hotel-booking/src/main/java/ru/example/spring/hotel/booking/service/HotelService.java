@@ -45,7 +45,7 @@ public class HotelService {
         hotelRepository.delete(getHotelById(id));
     }
 
-    private Hotel getHotelById(Long id) {
+    protected Hotel getHotelById(Long id) {
         return hotelRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException(id, Hotel.class));
     }

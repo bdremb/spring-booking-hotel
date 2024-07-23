@@ -15,6 +15,7 @@ public class RoomResponseDto {
     private Integer number;
     private Double price;
     private Integer maxVisitorsCount;
+    private Integer hotelId;
 
     private LocalDate bookingStartDate;
     private LocalDate bookingEndDate;

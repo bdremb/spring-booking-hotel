@@ -14,15 +14,17 @@ import ru.example.spring.hotel.booking.web.model.response.RoomResponseDto;
 public class RoomService {
 
     private final RoomRepository roomRepository;
+    private final HotelService hotelService;
     private final RoomMapper mapper;
 
     public RoomResponseDto findById(Long id) {
         return mapper.toDto(getHotelById(id));
     }
 
-    public RoomResponseDto create(RoomRequestDto dto) {
-        final Room createdRoom = roomRepository.save(mapper.toModel(dto));
-        return mapper.toDto(createdRoom);
+    public RoomResponseDto create(RoomRequestDto dto, Long hotelId) {
+        Room toCreateModel = mapper.toModel(dto);
+        toCreateModel.setHotel(hotelService.getHotelById(hotelId));
+        return mapper.toDto(roomRepository.save(toCreateModel));
     }
 
     public RoomResponseDto update(Long id, RoomRequestDto dto) {

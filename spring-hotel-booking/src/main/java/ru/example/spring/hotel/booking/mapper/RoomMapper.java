@@ -1,6 +1,7 @@
 package ru.example.spring.hotel.booking.mapper;
 
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 import org.mapstruct.ReportingPolicy;
 import ru.example.spring.hotel.booking.model.Room;
 import ru.example.spring.hotel.booking.web.model.request.RoomRequestDto;
@@ -16,6 +17,7 @@ public interface RoomMapper {
 
     Room toModel(RoomRequestDto dto);
 
+    @Mapping(target = "hotelId", source = "model.hotel.hotelId")
     RoomResponseDto toDto(Room model);
 
     default Room toUpdateModel(Room existsRoom, RoomRequestDto dto) {
