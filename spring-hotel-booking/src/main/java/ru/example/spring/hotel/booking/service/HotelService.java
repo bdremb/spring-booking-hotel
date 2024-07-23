@@ -20,12 +20,12 @@ public class HotelService {
     private final HotelRepository hotelRepository;
     private final HotelMapper mapper;
 
-    public List<HotelResponseDto> getAll(Integer offset, Integer limit) {
+    public List<HotelResponseDto> findAll(Integer offset, Integer limit) {
         Pageable pageable = PageRequest.of(offset, limit);
         return mapper.toListDto(hotelRepository.findAll(pageable));
     }
 
-    private HotelResponseDto getById(Long id) {
+    public HotelResponseDto findById(Long id) {
         return mapper.toDto(getHotelById(id));
     }
 
@@ -39,11 +39,11 @@ public class HotelService {
         return mapper.toDto(toUpdateHotel);
     }
 
-    public void delete(Long id) {
+    public void deleteById(Long id) {
         hotelRepository.delete(getHotelById(id));
     }
 
-    public Hotel getHotelById(Long id) {
+    private Hotel getHotelById(Long id) {
         return hotelRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException(id, Hotel.class));
     }
